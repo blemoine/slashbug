@@ -1,0 +1,13 @@
+/app/Config/database.php
+/app/tmp
+/app/webroot/files
+/lib/Cake/Console/Templates/skel/tmp/
+/plugins
+/vendors
+/build
+/dist
+.DS_Store
+/tags
+/target
+.idea
+.htaccess
