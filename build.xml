@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="henner_investigation" default="install">
+
+    <property file="build.properties"/>
+    <property name="test-scope" value="All"/>
+
+    <condition property="isMacOrLinux">
+        <or>
+            <os family="mac"/>
+            <os family="unix"/>
+        </or>
+    </condition>
+
+    <target name="_update-database-access">
+        <exec executable="php">
+            <arg value="-r"/>
+            <arg value="$file = file_get_contents('./app/Config/database.php.default'); $file = str_replace('#dbname#','${db.name}',$file); $file = str_replace('#dbtestname#','${db.test.name}',$file); $file = str_replace('#password#','${db.password}',$file); $file = str_replace('#login#','${db.login}',$file); file_put_contents('./app/Config/database.php', $file);"/>
+        </exec>
+    </target>
+
+    <!-- Tache unitaire -->
+    <target name="_clean">
+        <delete dir="./app/tmp"/>
+        <mkdir dir="./target" mode="0755"/>
+        <mkdir dir="./app/tmp" mode="0777"/>
+        <mkdir dir="./app/tmp/cache" mode="0777"/>
+        <mkdir dir="./app/tmp/cache/models" mode="0777"/>
+        <mkdir dir="./app/tmp/cache/persistent" mode="0777"/>
+        <mkdir dir="./app/tmp/cache/views" mode="0777"/>
+        <mkdir dir="./app/tmp/logs" mode="0777"/>
+        <mkdir dir="./app/tmp/sessions" mode="0777"/>
+        <mkdir dir="./app/tmp/tests" mode="0777"/>
+    </target>
+
+    <target name="_clean-target">
+        <delete dir="./target"/>
+        <mkdir dir="./target" mode="0755"/>
+    </target>
+
+    <target name="_release">
+        <exec dir="./app/Config"
+              command="cat bootstrap.php | grep APPLICATION_VERSION | perl -n -e'/(\d+)/ &amp;&amp; print $1'"
+              outputProperty="currentVersion"/>
+        <exec command="git tag v${currentVersion} -am'v${currentVersion}'" passthru="true"/>
+
+        <exec command="echo ${currentVersion} + 1 | bc" outputProperty="newVersion"/>
+
+        <exec executable="php">
+            <arg value="-r"/>
+            <arg value="$file = file_get_contents('./app/Config/bootstrap.php'); $file = preg_replace('/define\(\'APPLICATION_VERSION\', \'(\d+)\'\)/','define(\'APPLICATION_VERSION\', \'${newVersion}\')',$file);file_put_contents('./app/Config/bootstrap.php', $file);"/>
+        </exec>
+        <exec command="git commit -am'start of version ${newVersion}'" passthru="true"/>
+        <exec command="git push "/>
+        <exec command="git push --tags"/>
+    </target>
+
+    <!-- Tache globale -->
+
+    <target name="clean">
+        <phingcall target="_clean"/>
+        <phingcall target="_clean-target"/>
+    </target>
+
+    <target name="install">
+        <phingcall target="clean"/>
+        <phingcall target="_update-database-access"/>
+        <phingcall target="clean"/>
+    </target>
+
+    <target name="release">
+        <phingcall target="_release"/>
+    </target>
+
+</project>
