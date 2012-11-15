@@ -1,6 +1,7 @@
 <?php
+App::uses('Enum', 'Model');
 
-class Priority {
+class Priority extends Enum {
 
     const URGENT = 'urgent';
 
