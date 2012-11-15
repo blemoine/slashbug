@@ -180,4 +180,10 @@ CakeLog::config('error', array(
 	'file' => 'error',
 ));
 
+$lang = 'en';
+App::uses('L10nInfo', 'I18n');
+$l10nInfo = L10nInfo::create($lang);
+Configure::write('Config.language', $l10nInfo->isoLang);
+Configure::write('Config.l10nInfo', $l10nInfo);
+
 define('APPLICATION_VERSION', '1');

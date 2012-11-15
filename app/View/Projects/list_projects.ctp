@@ -9,7 +9,7 @@ foreach ($rows as $rawRow) {
     $row = array();
 
     $row[] = $rawRow['Project']['name'];
-    $row[] = $rawRow['Project']['created'];
+    $row[] = $this->Format->date($rawRow['Project']['created']);
 
     $output['aaData'][] = $row;
 }
