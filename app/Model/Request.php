@@ -31,15 +31,27 @@ class Request extends AppModel {
         'type' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
-                'message' => 'A type is required')),
+                'message' => 'A type is required'),
+            'inEnum' => array(
+                'rule' => array('inEnum',
+                                'Type'),
+                'message' => 'The type must be in the enum'),),
         'priority' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
-                'message' => 'A priority is required')),
+                'message' => 'A priority is required'),
+            'inEnum' => array(
+                'rule' => array('inEnum',
+                                'Priority'),
+                'message' => 'The priority must be in the enum'),),
         'status' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
-                'message' => 'A status is required')),
+                'message' => 'A status is required'),
+            'inEnum' => array(
+                'rule' => array('inEnum',
+                                'Status'),
+                'message' => 'The status must be in the enum'),),
         'minute_spent' => array(
             'naturalNumber' => array(
                 'rule' => array('naturalNumber',

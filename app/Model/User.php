@@ -52,7 +52,12 @@ class User extends AppModel {
         'usertype' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
-                'message' => 'A usertype is required')),);
+                'message' => 'A usertype is required'),
+            'inEnum' => array(
+                'rule' => array('inEnum',
+                                'Usertype'),
+                'message' => 'The usertype must be in the enum'),
+        ));
 
     public function beforeSave() {
         if (isset($this->data[$this->alias]['password'])) {
