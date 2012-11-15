@@ -54,4 +54,6 @@ ALTER TABLE requests ADD CONSTRAINT FK_requests_createdby FOREIGN KEY (created_b
 ALTER TABLE requests ADD CONSTRAINT FK_requests_project FOREIGN KEY (project_id) REFERENCES projects(id);
 ALTER TABLE requests ADD CONSTRAINT FK_requests_assignedto FOREIGN KEY (assigned_to) REFERENCES users(id);
 
+CREATE INDEX IDX_PROJECT_STATUS ON requests(project_id, status);
+
 INSERT INTO `users` VALUES (1,'admin','Admin','Admin','lemoine.benoit@gmail.com','4e269209a2005329a33f0c7e3bc7b0e6631b294d','admin','2012-07-28 17:06:14','2012-07-28 17:06:14');

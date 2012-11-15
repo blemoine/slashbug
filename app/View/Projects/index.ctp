@@ -20,7 +20,10 @@
             <thead>
             <tr>
                 <th><?php echo __('Project name') ?></th>
-                <th><?php echo __('Date de creation') ?></th>
+                <th><?php echo __('Date of creation') ?></th>
+                <th><?php echo __('Requests in progress') ?></th>
+                <th><?php echo __('Requests done') ?></th>
+                <th><?php echo __('Total Requests') ?></th>
             </tr>
             </thead>
 

@@ -11,6 +11,12 @@ foreach ($rows as $rawRow) {
     $row[] = $rawRow['Project']['name'];
     $row[] = $this->Format->date($rawRow['Project']['created']);
 
+    $row[] = $rawRow[0]['inProgress'];
+    $row[] = $rawRow[0]['done'];
+    $row[] = $rawRow[0]['total'];
+
+
+
     $output['aaData'][] = $row;
 }
 

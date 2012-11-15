@@ -8,9 +8,12 @@ class ProjectsController extends AppController {
 
     public function listProjects() {
         $columns = array(
-            'name',
-            'created');
-        $properties = $this->Datatable->initDatatableProperties($this->request->query, $columns, $this->Project);
+            'Project.name',
+            'Project.created',
+            'inProgress',
+            'done',
+            'total');
+        $properties = $this->Datatable->initDatatableProperties($this->request->query, $columns, $this->Project, array('findMethod' => 'findWithRequestsCount'));
         foreach ($properties as $name => $val) {
             $this->set($name, $val);
         }

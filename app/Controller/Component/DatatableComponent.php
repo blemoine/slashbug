@@ -61,7 +61,11 @@ class DatatableComponent extends Component {
             $ignore = $configuration['ignore'];
         }
 
+
         $where = array();
+        if(isset($configuration['preconditions'])) {
+            $where = $configuration['preconditions'];
+        }
         if (isset($query['sSearch']) && $query['sSearch'] != "") {
             $where['OR'] = array();
             $numberOfColumns = count($columns);

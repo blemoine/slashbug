@@ -5,6 +5,7 @@ class User extends AppModel {
 
     private $nonHashedPassword;
 
+
     public $validate = array(
         'username' => array(
             'required' => array(

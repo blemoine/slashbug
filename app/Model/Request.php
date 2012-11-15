@@ -2,6 +2,17 @@
 
 class Request extends AppModel {
 
+    public $belongsTo = array(
+        'Creator' => array(
+            'className' => 'User',
+            'foreignKey' => 'created_by'
+        ),
+        'Assigned' => array(
+            'className' => 'User',
+            'foreignKey' => 'assigned_to'
+        )
+    );
+
     public $validate = array(
         'name' => array(
             'required' => array(
@@ -69,4 +80,46 @@ class Request extends AppModel {
                 'message' => 'numbers only'),
         )
     );
+
+
+    public function findFilteredByProject($type, $options = array()) {
+        if ($type == 'count' || $type == 'all') {
+            $options = $this->filterParameters($options);
+
+            if ($type == 'count') {
+                $result = $this->find('count', $options);
+            } else if ($type == 'all') {
+
+                $options['fields'] = array(
+                    'Request.id',
+                    'Request.name',
+                    'Request.type',
+                    "CONCAT(Creator.firstname,' ', Creator.lastname) as creatorFullname",
+                    'Request.created',
+                    "CONCAT(Assigned.firstname,' ', Assigned.lastname) as assignedFullname",
+                    'Request.status'
+                );
+
+
+                $result = $this->find('all', $options);
+            }
+
+            return $result;
+        } else {
+            throw new InvalidArgumentException();
+        }
+
+    }
+
+
+    protected function filterParameters($options) {
+        return $this->filterParametersForDatatableFind($options,
+            array('assignedFullname' => array('Assigned.firstname',
+                                              'Assigned.lastname'),
+                  'creatorFullName' => array('Creator.firstname',
+                                             'Creator.lastname')));
+
+
+    }
+
 }
