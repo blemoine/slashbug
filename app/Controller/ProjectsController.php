@@ -18,4 +18,14 @@ class ProjectsController extends AppController {
         $this->render(null, false);
     }
 
+    public function add() {
+        if ($this->request->isPost()) {
+            if ($this->Project->save($this->request->data)) {
+                $this->setFlashSuccess(__('Your project has been saved.'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->setFlashErrorForModel($this->Project);
+            }
+        }
+    }
 }
