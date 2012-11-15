@@ -7,6 +7,7 @@ class PriorityTest extends CakeTestCase {
     public function testValuesReturn_values() {
         $values = Priority::values();
 
-        $this->assertEqual($values, array('urgent'));
+        $this->assertEqual($values, array('normal',
+                                          'urgent'));
     }
 }

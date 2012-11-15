@@ -2462,7 +2462,7 @@ class FormHelperTest extends CakeTestCase {
         $this->assertTags($result, $expected);
     }
 
-    
+
 
     /**
      * test input() with checkbox creation

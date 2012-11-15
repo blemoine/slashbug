@@ -7,7 +7,8 @@ class TypeTest extends CakeTestCase {
     public function testValuesReturn_values() {
         $values = Type::values();
 
-        $this->assertEqual($values, array('bug',
+        $this->assertEqual($values, array('maintenance',
+                                          'bug',
                                           'evolution'));
     }
 }
