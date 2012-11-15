@@ -66,6 +66,34 @@
         </if>
     </target>
 
+    <target name="_init-db-mock">
+        <if>
+            <isset property="db.password"/>
+            <then>
+                <pdo url="mysql:host=localhost" password="${db.password}" encoding="utf8" userId="${db.login}"
+                     onerror="abort">
+                    DROP DATABASE IF EXISTS `${db.name}`;
+                    CREATE DATABASE `${db.name}`;
+                    USE `${db.name}`;
+                </pdo>
+                <pdo url="mysql:host=localhost;dbname=${db.name}" password="${db.password}" encoding="utf8"
+                     userId="${db.login}" onerror="abort">
+                    <filelist dir="./etc" files="01-init-table.sql,02-mock-data.sql"/>
+                </pdo>
+            </then>
+            <else>
+                <pdo url="mysql:host=localhost" encoding="utf8" userId="${db.login}" onerror="abort">
+                    DROP DATABASE IF EXISTS `${db.name}`;
+                    CREATE DATABASE `${db.name}`;
+                    USE `${db.name}`;
+                </pdo>
+                <pdo url="mysql:host=localhost;dbname=${db.name}" encoding="utf8" userId="${db.login}" onerror="abort">
+                    <filelist dir="./etc" files="01-init-table.sql,02-mock-data.sql"/>
+                </pdo>
+            </else>
+        </if>
+    </target>
+
     <target name="_init-db-test">
         <if>
             <isset property="db.password"/>
@@ -170,6 +198,13 @@
         <phingcall target="clean"/>
         <phingcall target="_update-database-access"/>
         <phingcall target="_init-db"/>
+        <phingcall target="clean"/>
+    </target>
+
+    <target name="install-mock">
+        <phingcall target="clean"/>
+        <phingcall target="_update-database-access"/>
+        <phingcall target="_init-db-mock"/>
         <phingcall target="clean"/>
     </target>
 
