@@ -1,10 +1,6 @@
 <?php
-$output = array(
-    "sEcho" => $sEcho,
-    "iTotalRecords" => $iTotal,
-    "iTotalDisplayRecords" => $iFilteredTotal,
-    "aaData" => array());
 
+$aaData = array();
 foreach ($rows as $rawRow) {
     $row = array();
 
@@ -17,8 +13,7 @@ foreach ($rows as $rawRow) {
 
     $row[] = __($rawRow['Request']['status']);
 
-    $output['aaData'][] = $row;
+    $aaData[] = $row;
 }
 
-
-echo json_encode($output);
+echo $this->Datatable->jsonForDatatable($sEcho, $iTotal, $iFilteredTotal, $aaData);

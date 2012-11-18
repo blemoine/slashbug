@@ -29,4 +29,14 @@ SCRIPT;
         $this->Html->scriptBlock($script, array('inline' => false));
         self::$SCRIPT_ALREADY_ADDED;
     }
+
+    public function jsonForDatatable($sEcho, $iTotal, $iFilteredTotal, $aaData) {
+        $output = array(
+            "sEcho" => $sEcho,
+            "iTotalRecords" => $iTotal,
+            "iTotalDisplayRecords" => $iFilteredTotal,
+            "aaData" => $aaData);
+
+        return json_encode($output);
+    }
 }
