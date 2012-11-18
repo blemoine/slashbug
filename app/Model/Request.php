@@ -65,18 +65,16 @@ class Request extends AppModel {
                 'message' => 'The status must be in the enum'),),
         'minute_spent' => array(
             'naturalNumber' => array(
-                'rule' => array('naturalNumber',
+                'rule' => array('numeric',
                                 false),
                 'required' => true,
                 'message' => 'numbers only')),
         'assigned_to' => array(
-            'required' => array(
-                'rule' => array('notEmpty'),
-                'message' => 'A creator is required'),
             'naturalNumber' => array(
-                'rule' => array('naturalNumber',
+                'rule' => array('numeric',
                                 false),
-                'required' => true,
+                'required' => false,
+                'allowEmpty' => true,
                 'message' => 'numbers only'),
         )
     );
