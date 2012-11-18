@@ -47,12 +47,12 @@ ALTER TABLE users ADD UNIQUE(username);
 
 ALTER TABLE projects ADD UNIQUE(name);
 
-ALTER TABLE projects_users ADD CONSTRAINT FK_projectsusers_user FOREIGN KEY (user_id) REFERENCES users(id);
-ALTER TABLE projects_users ADD CONSTRAINT FK_projectsusers_project FOREIGN KEY (project_id) REFERENCES projects(id);
+ALTER TABLE projects_users ADD CONSTRAINT FK_projectsusers_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+ALTER TABLE projects_users ADD CONSTRAINT FK_projectsusers_project FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
 
 ALTER TABLE requests ADD CONSTRAINT FK_requests_createdby FOREIGN KEY (created_by) REFERENCES users(id);
-ALTER TABLE requests ADD CONSTRAINT FK_requests_project FOREIGN KEY (project_id) REFERENCES projects(id);
-ALTER TABLE requests ADD CONSTRAINT FK_requests_assignedto FOREIGN KEY (assigned_to) REFERENCES users(id);
+ALTER TABLE requests ADD CONSTRAINT FK_requests_project FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE;
+ALTER TABLE requests ADD CONSTRAINT FK_requests_assignedto FOREIGN KEY (assigned_to) REFERENCES users(id) ON DELETE SET NULL;
 
 CREATE INDEX IDX_PROJECT_STATUS ON requests(project_id, status);
 
