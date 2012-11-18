@@ -2,19 +2,21 @@
 class Enum {
 
     public static function values() {
-        $className = get_called_class();
-        $refl = new ReflectionClass($className);
-        return array_values($refl->getConstants());
+        return array_values(static::_hashmap());
     }
 
     public static function i18nList() {
-        $className = get_called_class();
-        $refl = new ReflectionClass($className);
-        $constants = $refl->getConstants();
+        $constants = static::_hashmap();
         $result = array();
         foreach ($constants as $constant) {
             $result[$constant] = __($constant);
         }
         return $result;
+    }
+
+    private static function _hashmap() {
+        $className = get_called_class();
+        $refl = new ReflectionClass($className);
+        return $refl->getConstants();
     }
 }
