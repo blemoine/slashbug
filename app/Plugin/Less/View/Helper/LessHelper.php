@@ -1,6 +1,5 @@
 <?php
 
-
 class LessHelper extends AppHelper {
 
     public $helpers = array('Html');

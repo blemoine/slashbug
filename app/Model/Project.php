@@ -1,5 +1,5 @@
 <?php
-App::uses('Status','Model');
+App::uses('Status', 'Model');
 
 class Project extends AppModel {
 
@@ -16,10 +16,13 @@ class Project extends AppModel {
         ),
     );
 
+    public $actsAs = array('Datatable.Datatable');
 
     public function findWithRequestsCount($type, $options = array()) {
         if ($type == 'count' || $type == 'all') {
-            $options = $this->filterParameters($options);
+            $options = $this->filterParametersForDatatableFind($options, array('inProgress',
+                                                                               'done',
+                                                                               'total'));
 
             if ($type == 'count') {
                 $result = $this->find('count', $options);
@@ -34,7 +37,6 @@ class Project extends AppModel {
                     "(SELECT COUNT(id) FROM requests where project_id = Project.id) as total"
                 );
 
-
                 $result = $this->find('all', $options);
             }
 
@@ -42,17 +44,6 @@ class Project extends AppModel {
         } else {
             throw new InvalidArgumentException();
         }
-
     }
-
-
-    protected function filterParameters($options) {
-        return $this->filterParametersForDatatableFind($options, array('inProgress',
-                                                                       'done',
-                                                                       'total'));
-
-
-    }
-
 
 }

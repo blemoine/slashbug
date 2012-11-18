@@ -79,10 +79,14 @@ class Request extends AppModel {
         )
     );
 
+    public $actsAs = array('Datatable.Datatable');
 
     public function findFilteredByProject($type, $options = array()) {
         if ($type == 'count' || $type == 'all') {
-            $options = $this->filterParameters($options);
+            $options = $this->filterParametersForDatatableFind($options, array('assignedFullname' => array('Assigned.firstname',
+                                                                                                           'Assigned.lastname'),
+                                                                               'creatorFullname' => array('Creator.firstname',
+                                                                                                          'Creator.lastname')));
 
             if ($type == 'count') {
                 $result = $this->find('count', $options);
@@ -106,18 +110,6 @@ class Request extends AppModel {
         } else {
             throw new InvalidArgumentException();
         }
-
-    }
-
-
-    protected function filterParameters($options) {
-        return $this->filterParametersForDatatableFind($options,
-            array('assignedFullname' => array('Assigned.firstname',
-                                              'Assigned.lastname'),
-                  'creatorFullName' => array('Creator.firstname',
-                                             'Creator.lastname')));
-
-
     }
 
 }

@@ -1,7 +1,9 @@
 <?php
 class ProjectsController extends AppController {
 
-    public $components = array('Datatable');
+    public $components = array('Datatable.Datatable');
+
+    public $helpers = array('Datatable.Datatable');
 
     public function index() {
     }

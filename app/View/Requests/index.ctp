@@ -1,17 +1,10 @@
-<h2><?php echo __('All requests for project %s',$project['Project']['name']) ?></h2>
+
+<h2><?php echo __('All requests for project %s', $project['Project']['name']) ?></h2>
 <div class="content-area">
 
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            instrumentAjaxDatatable('#requests-table', '<?php echo $this->Html->url(array('controller' => 'requests',
-                                                                                           'action' => 'listRequests',$project['Project']['id']));?>', [
-
-            ]);
-
-        });
-    </script>
+    <?php $this->Datatable->create('requests-table',array('controller' => 'requests',
+                                                          'action' => 'listRequests',
+                                                          $project['Project']['id'])) ?>
 
     <div class="datatable-wrapper">
         <table id="requests-table">

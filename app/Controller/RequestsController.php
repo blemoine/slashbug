@@ -1,14 +1,16 @@
 <?php
-App::uses('Type','Model');
-App::uses('Priority','Model');
-App::uses('Status','Model');
+App::uses('Type', 'Model');
+App::uses('Priority', 'Model');
+App::uses('Status', 'Model');
 
 class RequestsController extends AppController {
 
     public $uses = array('Request',
                          'Project',
                          'User');
-    public $components = array('Datatable');
+    public $components = array('Datatable.Datatable');
+
+    public $helpers = array('Datatable.Datatable');
 
     public function index($idProject) {
         $project = $this->Project->findById($idProject);
@@ -37,10 +39,11 @@ class RequestsController extends AppController {
     public function add() {
 
         $this->set('projects', $this->Project->find('list'));
-        $this->set('users', $this->User->find('list', array('fields'=>array('id','username'))));
-        $this->set('types',Type::i18nList());
-        $this->set('status',Status::i18nList());
-        $this->set('priorities',Priority::i18nList());
+        $this->set('users', $this->User->find('list', array('fields' => array('id',
+                                                                              'username'))));
+        $this->set('types', Type::i18nList());
+        $this->set('status', Status::i18nList());
+        $this->set('priorities', Priority::i18nList());
 
         if ($this->request->isPost()) {
             $data = $this->request->data;

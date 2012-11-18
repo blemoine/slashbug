@@ -20,7 +20,6 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 
         echo $this->Html->script('jquery-1.8.2.min.js');
         echo $this->Html->script('jquery-ui-1.9.1.custom.min.js', array('plugin' => false));
-        echo $this->Html->script('jquery.dataTables.js');
         echo $this->Html->script('jquery.validate.min.js');
         echo $this->Html->script('tinymce/tiny_mce.js');
         echo $this->Html->script('main.js');

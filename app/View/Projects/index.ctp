@@ -1,19 +1,8 @@
 <h2><?php echo __('All projects') ?></h2>
 <div class="content-area">
 
-
-
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            instrumentAjaxDatatable('#projects-table', '<?php echo $this->Html->url(array('controller' => 'projects',
-                                                                                           'action' => 'listProjects'));?>', [
-
-            ]);
-
-        });
-    </script>
+    <?php $this->Datatable->create('projects-table', array('controller' => 'projects',
+                                                           'action' => 'listProjects')) ?>
 
     <div class="datatable-wrapper">
         <table id="projects-table">
