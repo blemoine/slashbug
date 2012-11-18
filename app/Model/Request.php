@@ -82,34 +82,20 @@ class Request extends AppModel {
     public $actsAs = array('Datatable.Datatable');
 
     public function findFilteredByProject($type, $options = array()) {
-        if ($type == 'count' || $type == 'all') {
-            $options = $this->filterParametersForDatatableFind($options, array('assignedFullname' => array('Assigned.firstname',
-                                                                                                           'Assigned.lastname'),
-                                                                               'creatorFullname' => array('Creator.firstname',
-                                                                                                          'Creator.lastname')));
-
-            if ($type == 'count') {
-                $result = $this->find('count', $options);
-            } else if ($type == 'all') {
-
-                $options['fields'] = array(
-                    'Request.id',
-                    'Request.name',
-                    'Request.type',
-                    "CONCAT(Creator.firstname,' ', Creator.lastname) as creatorFullname",
-                    'Request.created',
-                    "CONCAT(Assigned.firstname,' ', Assigned.lastname) as assignedFullname",
-                    'Request.status'
-                );
-
-
-                $result = $this->find('all', $options);
-            }
-
-            return $result;
-        } else {
-            throw new InvalidArgumentException();
-        }
+        $fields = array(
+            'Request.id',
+            'Request.name',
+            'Request.type',
+            "CONCAT(Creator.firstname,' ', Creator.lastname) as creatorFullname",
+            'Request.created',
+            "CONCAT(Assigned.firstname,' ', Assigned.lastname) as assignedFullname",
+            'Request.status'
+        );
+        $forbiddenSearchFields = array('assignedFullname' => array('Assigned.firstname',
+                                                                   'Assigned.lastname'),
+                                       'creatorFullname' => array('Creator.firstname',
+                                                                  'Creator.lastname'));
+        return $this->customFindMethod($type, $options, $fields, $forbiddenSearchFields);
     }
 
 }

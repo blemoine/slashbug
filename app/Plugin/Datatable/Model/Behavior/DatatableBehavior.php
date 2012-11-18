@@ -1,8 +1,26 @@
 <?php
 class DatatableBehavior extends ModelBehavior {
 
+    public function customFindMethod(Model $model, $type, array $options, array $fields, array $forbiddenConditionFields = array(), array $forbiddenOrderFields = array()) {
+        if ($type == 'count' || $type == 'all') {
+            $options = $this->filterParametersForDatatableFind($options, $forbiddenConditionFields, $forbiddenOrderFields);
 
-    public function filterParametersForDatatableFind(Model $model, array $options, array $forbiddenConditionFields = array(), array $forbiddenOrderFields = array()) {
+            if ($type == 'count') {
+                $result = $model->find('count', $options);
+            } else if ($type == 'all') {
+
+                $options['fields'] = $fields;
+
+                $result = $model->find('all', $options);
+            }
+
+            return $result;
+        } else {
+            throw new InvalidArgumentException();
+        }
+    }
+
+    protected function filterParametersForDatatableFind(array $options, array $forbiddenConditionFields = array(), array $forbiddenOrderFields = array()) {
         if (isset($options['conditions']) && isset($options['conditions']['OR'])) {
 
             foreach ($forbiddenConditionFields as $field => $remplacement) {

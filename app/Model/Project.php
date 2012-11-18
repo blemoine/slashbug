@@ -19,31 +19,21 @@ class Project extends AppModel {
     public $actsAs = array('Datatable.Datatable');
 
     public function findWithRequestsCount($type, $options = array()) {
-        if ($type == 'count' || $type == 'all') {
-            $options = $this->filterParametersForDatatableFind($options, array('inProgress',
-                                                                               'done',
-                                                                               'total'));
 
-            if ($type == 'count') {
-                $result = $this->find('count', $options);
-            } else if ($type == 'all') {
-                $statusInProgress = Status::IN_PROGRESS;
-                $statusResolved = Status::RESOLVED;
-                $options['fields'] = array(
-                    'Project.name',
-                    'Project.created',
-                    "(SELECT COUNT(id) FROM requests where project_id = Project.id and status = '$statusInProgress') as inProgress",
-                    "(SELECT COUNT(id) FROM requests where project_id = Project.id and status = '$statusResolved') as done",
-                    "(SELECT COUNT(id) FROM requests where project_id = Project.id) as total"
-                );
+        $statusInProgress = Status::IN_PROGRESS;
+        $statusResolved = Status::RESOLVED;
+        $fields = array(
+            'Project.name',
+            'Project.created',
+            "(SELECT COUNT(id) FROM requests where project_id = Project.id and status = '$statusInProgress') as inProgress",
+            "(SELECT COUNT(id) FROM requests where project_id = Project.id and status = '$statusResolved') as done",
+            "(SELECT COUNT(id) FROM requests where project_id = Project.id) as total"
+        );
 
-                $result = $this->find('all', $options);
-            }
-
-            return $result;
-        } else {
-            throw new InvalidArgumentException();
-        }
+        $forbiddenSearchFields = array('inProgress',
+                                       'done',
+                                       'total');
+        return $this->customFindMethod($type, $options, $fields, $forbiddenSearchFields);
     }
 
 }
