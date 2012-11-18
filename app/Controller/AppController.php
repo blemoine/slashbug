@@ -7,7 +7,7 @@ class AppController extends Controller {
     public $helpers = array(
         'Html',
         'Session',
-        'Less',
+        'Less.Less',
         'AForm',
         'Format');
 
