@@ -4,6 +4,7 @@
 
     <property file="build.properties"/>
     <property name="test-scope" value="All"/>
+    <property name="test-plugin" value="app"/>
 
     <condition property="isMacOrLinux">
         <or>
@@ -128,10 +129,10 @@
         <if>
             <equals arg1="${isMacOrLinux}" arg2="true"/>
             <then>
-                <exec dir="./app" command="./Console/cake test app ${test-scope}" passthru="true"/>
+                <exec dir="./app" command="./Console/cake test ${test-plugin} ${test-scope}" passthru="true"/>
             </then>
             <else>
-                <exec dir="./app" command="Console\cake.bat test app ${test-scope}" passthru="true"/>
+                <exec dir="./app" command="Console\cake.bat test ${test-plugin} ${test-scope}" passthru="true"/>
             </else>
         </if>
 
@@ -142,12 +143,12 @@
             <equals arg1="${isMacOrLinux}" arg2="true"/>
             <then>
                 <exec dir="./app"
-                      command="./Console/cake test --stderr --log-junit ../target/junit.xml --configuration ../etc/phpunit.xml app ${test-scope}"
+                      command="./Console/cake test --stderr --log-junit ../target/junit.xml --configuration ../etc/phpunit.xml ${test-plugin} ${test-scope}"
                       passthru="true"/>
             </then>
             <else>
                 <exec dir="./app"
-                      command="Console\cake.bat test --stderr --log-junit ../target/junit.xml --configuration ../etc/phpunit.xml app ${test-scope}"
+                      command="Console\cake.bat test --stderr --log-junit ../target/junit.xml --configuration ../etc/phpunit.xml ${test-plugin} ${test-scope}"
                       passthru="true"/>
             </else>
         </if>
