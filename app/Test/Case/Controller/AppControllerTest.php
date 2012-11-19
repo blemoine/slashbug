@@ -1,6 +1,5 @@
 <?php
-CakePlugin::load('Datatable');
-CakePlugin::load('Less');
+
 App::uses('AppController', 'Controller');
 App::import('Vendor', 'Mock2', array('file' => 'mock2/Mock2.php'));
 App::import('Vendor', 'PHPUnit_Framework_Constraint_Callback', array('file' => 'phpunit/PHPUnit_Framework_Constraint_Callback.php'));
@@ -9,6 +8,8 @@ abstract class AppControllerTest extends ControllerTestCase {
 
     public function setUp() {
         parent::setUp();
+        CakePlugin::load('Datatable');
+        CakePlugin::load('Less');
 
         $modelDescription = $this->getModelsDescription();
         $this->controller = $this->generate($this->getControllerName());
