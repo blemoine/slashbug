@@ -2,6 +2,7 @@
 App::uses('Type', 'Model');
 App::uses('Priority', 'Model');
 App::uses('Status', 'Model');
+CakePlugin::load('Datatable');
 
 class RequestsController extends AppController {
 

@@ -1,4 +1,6 @@
 <?php
+CakePlugin::load('Datatable');
+
 class ProjectsController extends AppController {
 
     public $components = array('Datatable.Datatable');
