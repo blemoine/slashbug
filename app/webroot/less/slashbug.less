@@ -1,0 +1,162 @@
+.gradient (@start: 0, @end: 0) {
+    background:-webkit-linear-gradient( center top, @start 5%, @end 100% );
+    background:-moz-linear-gradient( center top, @start 5%, @end 100% );
+    background:-o-linear-gradient( center top, @start 5%, @end 100% );
+    background:-ms-linear-gradient( center top, @start 5%, @end 100% );
+    background-color:@end;
+}
+
+.rounded-corners (@radius: 4px 4px 4px 4px) {
+    border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    -o-border-radius: @radius;
+    -ms-border-radius: @radius;
+}
+
+
+@headerColor = #202020;
+@menuColor = #E0E0E0;
+
+@menuFontColor = #303030;
+
+@footerColor = #E0E0E0;
+
+@datatableColor = #F5F5F5;
+
+div.header {
+    h1 {
+        font-size: 150%;
+        margin-left:10px;
+        color:white;
+    }
+
+    padding-top: 15px;
+    padding-bottom: 15px;
+    .gradient(lighten(@headerColor,30%),@headerColor);
+
+}
+
+div.menu {
+    ul {
+        margin-left:10px;
+
+        li {
+            border:1px solid darken(@menuColor,10%);
+
+            display:inline-block;
+            .gradient(lighten(@menuColor,5%),darken(@menuColor,20%));
+
+            &:hover {
+                .gradient(lighten(@menuColor,15%),darken(@menuColor,10%));
+            }
+
+            > a {
+                text-decoration: none;
+                color:@menuFontColor;
+                font-weight: bolder;
+                display:block;
+                padding-top:10px;
+                padding-bottom:10px;
+                padding-right:45px;
+                padding-left:45px;
+
+                &:hover {
+                    color:lighten(@menuFontColor,5%);
+                }
+            }
+        }
+
+    }
+
+    .gradient(@menuColor,darken(@menuColor,20%));
+}
+
+div.content {
+    padding-top:15px;
+    padding-bottom:15px;
+
+    h2 {
+        font-size:130%;
+        margin-bottom:10px;
+        margin-left:10px;
+    }
+}
+
+div.footer {
+    position:absolute;
+    width:100%;
+    bottom:0px;
+    font-size:80%;
+    padding-top:5px;
+    padding-bottom:5px;
+    .gradient(darken(@footerColor,20%),@footerColor);
+
+    span {
+        margin-left:10px;
+    }
+}
+
+
+//Datatable
+
+.datatable-wrapper {
+    table {
+        width: 100%;
+
+        tr {
+            border-left: #d0d0d0 1px solid;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 10px;
+        }
+
+        .DataTables_sort_icon {
+            display: block;
+            float: right;
+        }
+    }
+
+    .dataTables_length, .dataTables_filter {
+        width: 200px;
+        float: left;
+        padding: 10px;
+    }
+
+    .dataTables_filter input {
+        color:black;
+        width: 200px;
+        float: left;
+        padding: 6px;
+        background: @datatableColor;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        border: darken(@datatableColor,10%) 1px solid;
+        .rounded-corners(4px 4px 4px 4px);
+    }
+    .dataTables_length select {
+        color:black;
+        width: 200px;
+        float: left;
+        padding: 5px;
+        background: @datatableColor;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        border: darken(@datatableColor,10%) 1px solid;
+        .rounded-corners(4px 4px 4px 4px);
+    }
+
+    .dataTables_processing {
+        width: 200px;
+        float: left;
+        margin: 0 0 0 50px;
+        padding: 25px 0 0 0;
+    }
+
+}
+
+

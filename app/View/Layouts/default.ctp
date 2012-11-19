@@ -17,7 +17,6 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
         echo $this->Html->css('tinymce');
         echo $this->Less->less('slashbug');
 
-
         echo $this->Html->script('jquery-1.8.2.min.js');
         echo $this->Html->script('jquery-ui-1.9.1.custom.min.js', array('plugin' => false));
         echo $this->Html->script('jquery.validate.min.js');
@@ -33,15 +32,24 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 </head>
 <body>
 	<div id="container">
-		<div id="header">
-            <h1><?php echo $title_for_layout ?></h1>
+        <div class="header">
+            <h1>Slashbug</h1>
+        </div>
+        <div class="menu" >
+            <ul>
+                <li><?php echo $this->Html->link(__('Projects'), array('controller'=>'projects','action'=>'index')) ?></li>
+            </ul>
+        </div>
+		<div class="content" >
+            <div class="flash-message">
+			    <?php echo $this->Session->flash(); ?>
+            </div>
+            <div class="inner-content">
+			    <?php echo $this->fetch('content'); ?>
+            </div>
 		</div>
-		<div id="content">
-			<?php echo $this->Session->flash(); ?>
-			<?php echo $this->fetch('content'); ?>
-		</div>
-		<div id="footer">
-
+		<div class="footer">
+            <span class="version"><?php echo __('Version %s', APPLICATION_VERSION) ?></span>
 		</div>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
