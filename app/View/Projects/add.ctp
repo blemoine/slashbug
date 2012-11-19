@@ -6,6 +6,6 @@
     echo $this->AForm->create('Project');
     echo $this->AForm->input('Project.name', array('label' => __('Project name:')));
     echo $this->AForm->textareaMce('Project.description', array('label'=> __('Description:')));
-    echo $this->AForm->endFormGrey(__('Insert project'));
+    echo $this->AForm->end(__('Insert project'));
     ?>
 </div>

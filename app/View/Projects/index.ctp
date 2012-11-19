@@ -1,9 +1,11 @@
 <h2><?php echo __('All projects') ?></h2>
 <div class="content-area">
 
+    <?php echo $this->Html->link(__('Add a project'), array('controller' => 'projects',
+                                                            'action' => 'add'), array('class' => 'button-green')); ?>
+
     <?php $this->Datatable->create('projects-table', array('controller' => 'projects',
                                                            'action' => 'listProjects')) ?>
-
     <div class="datatable-wrapper">
         <table id="projects-table">
             <thead>

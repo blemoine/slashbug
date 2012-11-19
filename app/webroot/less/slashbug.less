@@ -81,10 +81,10 @@ div.content {
         margin-bottom:10px;
         margin-left:10px;
     }
+
 }
 
 div.footer {
-    position:absolute;
     width:100%;
     bottom:0px;
     font-size:80%;
@@ -101,6 +101,8 @@ div.footer {
 //Datatable
 
 .datatable-wrapper {
+    margin-top:10px;
+
     table {
         width: 100%;
 
@@ -157,6 +159,66 @@ div.footer {
         padding: 25px 0 0 0;
     }
 
+}
+
+//Form
+
+form {
+    padding-left:10px;
+    div.input {
+        padding-bottom:10px;
+        label {
+            display:inline-block;
+            width:150px;
+            padding-right:10px;
+            text-align:right;
+
+            &.error {
+                color:red;
+            }
+        }
+
+        &.required label:first-child:before {
+            content:'*';
+            color:red;
+        }
+    }
+
+    .submit input {
+        .button(#909090);
+    }
+}
+
+//Button
+
+.button(@color ) {
+    cursor: pointer;
+    font-family:arial;
+    font-size:14px;
+    font-weight:bold;
+    padding:6px 24px;
+    display:inline-block;
+    .rounded-corners (4px 4px 4px 4px);
+    text-decoration: none;
+
+    .box-shadow (inset 0px 1px 0px 0px lighten(@color,20%));
+    .gradient (lighten(@color,10%),@color);
+    border:1px solid darken(@color,5%);
+    color:#ffffff;
+    text-shadow:1px 1px 0px darken(@color,20%);
+
+    &:hover {
+        .gradient (@color,lighten(@color,10%));
+    }
+
+    &:active {
+        position:relative;
+        top:1px;
+    }
+}
+
+.button-green {
+    .button(#77a809)
 }
 
 

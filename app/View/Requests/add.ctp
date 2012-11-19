@@ -22,6 +22,6 @@
                                                   'type' => 'select',
                                                   'options' => $users));
 
-    echo $this->AForm->endFormGrey(__('Create request'));
+    echo $this->AForm->end(__('Create request'));
     ?>
 </div>

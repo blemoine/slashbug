@@ -63,12 +63,6 @@ SCRIPT;
         return $form;
     }
 
-    public function endFormGrey($label) {
-        $options = array('label' => $label,
-                         'div' => array('class' => 'end-form-grey'));
-        return parent::end($options);
-    }
-
     public function ajaxSelect($fieldName, $source, $options = array()) {
         $url = $this->Html->url($source);
 
