@@ -4,7 +4,9 @@ $aaData = array();
 foreach ($rows as $rawRow) {
     $row = array();
 
-    $row[] = $rawRow['Request']['name'];
+    $row[] = $this->Html->link($rawRow['Request']['name'], array('controller' => 'requests',
+                                                                 'action' => 'edit',
+                                                                 $rawRow['Request']['id']));
     $row[] = __($rawRow['Request']['type']);
     $row[] = $rawRow[0]['creatorFullname'];
     $row[] = $this->Format->date($rawRow['Request']['created']);
