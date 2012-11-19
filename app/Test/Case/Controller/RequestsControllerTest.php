@@ -43,12 +43,73 @@ class RequestsControllerTest extends AppControllerTest {
         $this->assertEqual($this->vars['rows'], array());
     }
 
+    public function testAdd_get() {
+        $project = array(2 => 'project');
+        Mock2::when($this->Project->find('list'))->thenReturn($project);
+        $users = array(3 => 'user');
+        Mock2::when($this->User->find('list', array('fields' => array('id',
+                                                                      'username'))))->thenReturn($users);
+        $this->testAction('/requests/add', array('method' => 'get'));
+
+        $this->assertEqual($this->vars['projects'], $project);
+        $this->assertEqual($this->vars['users'], $users);
+        $this->assertEnumInVars();
+    }
+
+    public function testAdd_postOk() {
+        $project = array(2 => 'project');
+        Mock2::when($this->Project->find('list'))->thenReturn($project);
+        $users = array(3 => 'user');
+        Mock2::when($this->User->find('list', array('fields' => array('id',
+                                                                      'username'))))->thenReturn($users);
+
+
+        $data = array('Request' => array('project_id' => 23));
+        Mock2::when($this->Request->save($data))->thenReturn(true);
+
+        $this->expectFlashSuccess();
+        $this->testAction('/requests/add', array('method' => 'post',
+                                                 'data' => $data));
+
+        $this->assertContains('/requests/index/23', $this->headers['Location']);
+        $this->assertEqual($this->vars['projects'], $project);
+        $this->assertEqual($this->vars['users'], $users);
+        $this->assertEnumInVars();
+    }
+
+    public function testAdd_postError() {
+        $project = array(2 => 'project');
+        Mock2::when($this->Project->find('list'))->thenReturn($project);
+        $users = array(3 => 'user');
+        Mock2::when($this->User->find('list', array('fields' => array('id',
+                                                                      'username'))))->thenReturn($users);
+
+        $data = array('Request' => array('project_id' => 23));
+        Mock2::when($this->Request->save($data))->thenReturn(false);
+
+        $this->expectFlashError();
+        $this->testAction('/requests/add', array('method' => 'post',
+                                                 'data' => $data));
+
+        $this->assertFalse(isset($this->headers['Location']));
+        $this->assertEqual($this->vars['projects'], $project);
+        $this->assertEqual($this->vars['users'], $users);
+        $this->assertEnumInVars();
+    }
+
+    protected function assertEnumInVars() {
+        $this->assertEqual($this->vars['types'], Type::i18nList());
+        $this->assertEqual($this->vars['status'], Status::i18nList());
+        $this->assertEqual($this->vars['priorities'], Priority::i18nList());
+    }
+
     protected function getControllerName() {
         return 'Requests';
     }
 
     protected function getModelsDescription() {
         return array('Request',
+                     'User',
                      'Project');
     }
 
