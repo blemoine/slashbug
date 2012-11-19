@@ -55,6 +55,10 @@ class ProjectsControllerTest extends AppControllerTest {
         $this->assertEqual($this->vars['rows'], array());
     }
 
+    public function testIndex() {
+        $this->testAction('/projects/index', array('return' => 'view'));
+        $this->assertTrue(strpos($this->view, 'datatable') !== false);
+    }
 
     protected function getControllerName() {
         return 'Projects';
