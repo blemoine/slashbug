@@ -29,6 +29,32 @@ class ProjectsControllerTest extends AppControllerTest {
         $this->assertFalse(isset($this->headers['Location']));
     }
 
+    public function testListProject() {
+        $query = array('test' => 'pp');
+
+        Mock2::when($this->Datatable->initDatatableProperties($query,
+            array(
+                 'Project.name',
+                 'Project.created',
+                 'inProgress',
+                 'done',
+                 'total'), $this->isInstanceOf('Project'),
+            array('findMethod' => 'findWithRequestsCount')))
+            ->thenReturn(array(
+                              'sEcho' => "value",
+                              'iTotal' => 'value2',
+                              'iFilteredTotal' => 'value3',
+                              'rows' => array()));
+
+        $this->testAction('/projects/listProjects?test=pp', array('method' => 'get',
+                                                                  'return' => 'vars'));
+
+        $this->assertEqual($this->vars['sEcho'], 'value');
+        $this->assertEqual($this->vars['iTotal'], 'value2');
+        $this->assertEqual($this->vars['iFilteredTotal'], 'value3');
+        $this->assertEqual($this->vars['rows'], array());
+    }
+
 
     protected function getControllerName() {
         return 'Projects';

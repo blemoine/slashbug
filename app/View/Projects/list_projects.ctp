@@ -11,8 +11,6 @@ foreach ($rows as $rawRow) {
     $row[] = $rawRow[0]['done'];
     $row[] = $rawRow[0]['total'];
 
-
-
     $aaData[] = $row;
 }
 
