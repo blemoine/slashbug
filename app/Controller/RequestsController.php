@@ -37,12 +37,7 @@ class RequestsController extends AppController {
     }
 
     public function edit($idRequest) {
-        $this->set('projects', $this->Project->find('list'));
-        $this->set('users', $this->User->find('list', array('fields' => array('id',
-                                                                              'username'))));
-        $this->set('types', Type::i18nList());
-        $this->set('status', Status::i18nList());
-        $this->set('priorities', Priority::i18nList());
+        $this->loadDataForSelect();
 
         if ($this->request->isGet()) {
             $this->request->data = $this->Request->findById($idRequest);
@@ -50,8 +45,6 @@ class RequestsController extends AppController {
     }
 
     public function add() {
-
-
         if ($this->request->isPost()) {
             $data = $this->request->data;
 
@@ -60,22 +53,21 @@ class RequestsController extends AppController {
                 $this->redirect(array('action' => 'index',
                                       $data['Request']['project_id']));
             } else {
-                $this->set('projects', $this->Project->find('list'));
-                $this->set('users', $this->User->find('list', array('fields' => array('id',
-                                                                                      'username'))));
-                $this->set('types', Type::i18nList());
-                $this->set('status', Status::i18nList());
-                $this->set('priorities', Priority::i18nList());
+                $this->loadDataForSelect();
                 $this->setFlashErrorForModel($this->Request);
             }
         } else {
-            $this->set('projects', $this->Project->find('list'));
-            $this->set('users', $this->User->find('list', array('fields' => array('id',
-                                                                                  'username'))));
-            $this->set('types', Type::i18nList());
-            $this->set('status', Status::i18nList());
-            $this->set('priorities', Priority::i18nList());
+            $this->loadDataForSelect();
         }
+    }
+
+    protected function loadDataForSelect() {
+        $this->set('projects', $this->Project->find('list'));
+        $this->set('users', $this->User->find('list', array('fields' => array('id',
+                                                                              'username'))));
+        $this->set('types', Type::i18nList());
+        $this->set('status', Status::i18nList());
+        $this->set('priorities', Priority::i18nList());
     }
 
 }

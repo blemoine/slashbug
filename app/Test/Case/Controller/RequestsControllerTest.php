@@ -56,6 +56,23 @@ class RequestsControllerTest extends AppControllerTest {
         $this->assertEnumInVars();
     }
 
+    public function testEdit_get() {
+        $project = array(2 => 'project');
+        Mock2::when($this->Project->find('list'))->thenReturn($project);
+        $users = array(3 => 'user');
+        Mock2::when($this->User->find('list', array('fields' => array('id',
+                                                                      'username'))))->thenReturn($users);
+
+        $request = array('Request' => array('id' => 23));
+        Mock2::when($this->Request->findById(23))->thenReturn($request);
+        $this->testAction('/requests/edit/23', array('method' => 'get'));
+
+        $this->assertEqual($this->controller->request->data, $request);
+        $this->assertEqual($this->vars['projects'], $project);
+        $this->assertEqual($this->vars['users'], $users);
+        $this->assertEnumInVars();
+    }
+
     public function testAdd_postOk() {
         $data = array('Request' => array('project_id' => 23));
         Mock2::when($this->Request->save($data))->thenReturn(true);
