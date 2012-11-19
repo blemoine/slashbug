@@ -14,6 +14,35 @@ class RequestsControllerTest extends AppControllerTest {
         $this->assertEqual($this->vars['project'], $project);
     }
 
+    public function testListRequest() {
+        $query = array('test' => 'pp');
+
+        Mock2::when($this->Datatable->initDatatableProperties($query,
+            array(
+                 'Request.name',
+                 'Request.type',
+                 'creatorFullname',
+                 'Request.created',
+                 'assignedFullname',
+                 'Request.status'
+            ), $this->isInstanceOf('Request'),
+            array('findMethod' => 'findFilteredByProject',
+                  'preconditions' => array('Request.project_id' => 34))))
+            ->thenReturn(array(
+                              'sEcho' => "value",
+                              'iTotal' => 'value2',
+                              'iFilteredTotal' => 'value3',
+                              'rows' => array()));
+
+        $this->testAction('/requests/listRequests/34?test=pp', array('method' => 'get',
+                                                                     'return' => 'vars'));
+
+        $this->assertEqual($this->vars['sEcho'], 'value');
+        $this->assertEqual($this->vars['iTotal'], 'value2');
+        $this->assertEqual($this->vars['iFilteredTotal'], 'value3');
+        $this->assertEqual($this->vars['rows'], array());
+    }
+
     protected function getControllerName() {
         return 'Requests';
     }
