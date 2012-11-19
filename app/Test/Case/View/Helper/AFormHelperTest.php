@@ -40,12 +40,6 @@ class AFormHelperTest extends CakeTestCase {
         $this->assertTrue(strpos($form, '<form') !== false);
     }
 
-    public function testEndFormGrey() {
-        $result = $this->AForm->endFormGrey('myLabel');
-        $this->assertTrue(strpos($result, '<div class="end-form-grey"') !== false);
-        $this->assertTrue(strpos($result, 'type="submit"') !== false);
-    }
-
     public function testAjaxSelect_nominal() {
         $this->AForm->Html = $this->getMock('HtmlHelper', array('scriptBlock'), array($this->view));
         $mock = new Mock($this->AForm->Html);

@@ -57,13 +57,6 @@ class RequestsControllerTest extends AppControllerTest {
     }
 
     public function testAdd_postOk() {
-        $project = array(2 => 'project');
-        Mock2::when($this->Project->find('list'))->thenReturn($project);
-        $users = array(3 => 'user');
-        Mock2::when($this->User->find('list', array('fields' => array('id',
-                                                                      'username'))))->thenReturn($users);
-
-
         $data = array('Request' => array('project_id' => 23));
         Mock2::when($this->Request->save($data))->thenReturn(true);
 
@@ -72,9 +65,6 @@ class RequestsControllerTest extends AppControllerTest {
                                                  'data' => $data));
 
         $this->assertContains('/requests/index/23', $this->headers['Location']);
-        $this->assertEqual($this->vars['projects'], $project);
-        $this->assertEqual($this->vars['users'], $users);
-        $this->assertEnumInVars();
     }
 
     public function testAdd_postError() {

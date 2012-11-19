@@ -23,12 +23,14 @@ class ProjectTest extends CakeTestCase {
     public function testFindWithRequests_All() {
         $result = $this->Project->findWithRequestsCount('all');
         $this->assertEqual($result, array(
-                                         array('Project' => array('name' => 'testProject1',
+                                         array('Project' => array('id' => 1000,
+                                                                  'name' => 'testProject1',
                                                                   'created' => '2012-02-12 00:00:00'),
                                                0 => array('inProgress' => 1,
                                                           'done' => 1,
                                                           'total' => 3)),
-                                         array('Project' => array('name' => 'testProject2',
+                                         array('Project' => array('id' => 1001,
+                                                                  'name' => 'testProject2',
                                                                   'created' => '2012-04-22 00:00:00'),
                                                0 => array('inProgress' => 0,
                                                           'done' => 0,

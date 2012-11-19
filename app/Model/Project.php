@@ -23,6 +23,7 @@ class Project extends AppModel {
         $statusInProgress = Status::IN_PROGRESS;
         $statusResolved = Status::RESOLVED;
         $fields = array(
+            'Project.id',
             'Project.name',
             'Project.created',
             "(SELECT COUNT(id) FROM requests where project_id = Project.id and status = '$statusInProgress') as inProgress",

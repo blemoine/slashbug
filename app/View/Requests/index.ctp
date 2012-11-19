@@ -1,10 +1,12 @@
-
 <h2><?php echo __('All requests for project %s', $project['Project']['name']) ?></h2>
 <div class="content-area">
 
-    <?php $this->Datatable->create('requests-table',array('controller' => 'requests',
-                                                          'action' => 'listRequests',
-                                                          $project['Project']['id'])) ?>
+    <?php echo $this->Html->link(__('Add a request'), array('controller' => 'requests',
+                                                            'action' => 'add'), array('class' => 'button-green')); ?>
+
+    <?php $this->Datatable->create('requests-table', array('controller' => 'requests',
+                                                           'action' => 'listRequests',
+                                                           $project['Project']['id'])) ?>
 
     <div class="datatable-wrapper">
         <table id="requests-table">

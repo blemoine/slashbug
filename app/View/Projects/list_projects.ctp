@@ -4,7 +4,7 @@ $aaData = array();
 foreach ($rows as $rawRow) {
     $row = array();
 
-    $row[] = $rawRow['Project']['name'];
+    $row[] = $this->Html->link($rawRow['Project']['name'],array('controller'=>'requests','action'=>'index',$rawRow['Project']['id']));
     $row[] = $this->Format->date($rawRow['Project']['created']);
 
     $row[] = $rawRow[0]['inProgress'];

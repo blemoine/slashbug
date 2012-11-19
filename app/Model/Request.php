@@ -67,7 +67,8 @@ class Request extends AppModel {
             'naturalNumber' => array(
                 'rule' => array('numeric',
                                 false),
-                'required' => true,
+                'required' => false,
+                'allowEmpty' => true,
                 'message' => 'numbers only')),
         'assigned_to' => array(
             'naturalNumber' => array(
