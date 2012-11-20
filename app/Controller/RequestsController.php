@@ -37,10 +37,22 @@ class RequestsController extends AppController {
     }
 
     public function edit($idRequest) {
-        $this->loadDataForSelect();
 
-        if ($this->request->isGet()) {
+        if (!$this->request->isPut()) {
+            $this->loadDataForSelect();
             $this->request->data = $this->Request->findById($idRequest);
+        } else {
+            $data = $this->request->data;
+
+            $data['Request']['id'] = $idRequest;
+            if ($this->Request->save($data)) {
+                $this->setFlashSuccess(__('Your request has been saved.'));
+                $this->redirect(array('action' => 'index',
+                                      $data['Request']['project_id']));
+            } else {
+                $this->loadDataForSelect();
+                $this->setFlashErrorForModel($this->Request);
+            }
         }
     }
 
