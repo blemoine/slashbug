@@ -24,6 +24,9 @@
 
 @datatableColor = #F5F5F5;
 
+@errorcolor: #c62629;
+@successcolor: #468847;
+
 div.header {
     h1 {
         font-size: 150%;
@@ -221,4 +224,26 @@ form {
     .button(#77a809)
 }
 
+.alertbox(@color) {
+    .rounded-corners();
+    margin:20px;
+    padding: 4px 10px;
 
+    background-color: lighten(@color,40%);
+    color:@color;
+    border:1px solid lighten(@color,30%);
+
+    h4 {
+        padding-left: 0;
+    }
+}
+
+.alert {
+    &.alert-error {
+        .alertbox(@errorcolor);
+    }
+
+    &.alert-success {
+        .alertbox(@successcolor);
+    }
+}

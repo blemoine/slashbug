@@ -202,3 +202,29 @@ form .submit input:active {
   position:relative;
   top:1px;
 }
+.alert.alert-error {
+  margin:20px;
+  padding:4px 10px;
+  background-color:#f4c4c5;
+  color:#c62629;
+  border:1px solid #ec999b;
+  border-radius:4px 4px 4px 4px;
+  -webkit-border-radius:4px 4px 4px 4px;
+  -moz-border-radius:4px 4px 4px 4px;
+  -o-border-radius:4px 4px 4px 4px;
+  -ms-border-radius:4px 4px 4px 4px;
+}
+.alert.alert-error h4 { padding-left:0; }
+.alert.alert-success {
+  margin:20px;
+  padding:4px 10px;
+  background-color:#bdddbd;
+  color:#468847;
+  border:1px solid #9bcc9c;
+  border-radius:4px 4px 4px 4px;
+  -webkit-border-radius:4px 4px 4px 4px;
+  -moz-border-radius:4px 4px 4px 4px;
+  -o-border-radius:4px 4px 4px 4px;
+  -ms-border-radius:4px 4px 4px 4px;
+}
+.alert.alert-success h4 { padding-left:0; }
