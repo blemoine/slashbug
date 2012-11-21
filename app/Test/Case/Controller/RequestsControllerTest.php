@@ -48,15 +48,15 @@ class RequestsControllerTest extends AppControllerTest {
         Mock2::when($this->User->find('list', array('fields' => array('id',
                                                                       'username'))))->thenReturn($users);
 
-
-        Mock2::when($this->Project->findById(2))->thenReturn(array('Project' => array('name' => 'test name')));
+        $project =array('Project' => array('name' => 'test name','id'=>2));
+        Mock2::when($this->Project->findById(2))->thenReturn($project);
 
 
         $this->testAction('/requests/add/2', array('method' => 'get'));
 
 
         $this->assertEqual($this->vars['users'], $users);
-        $this->assertEqual($this->vars['projectName'], 'test name');
+        $this->assertEqual($this->vars['project'], $project);
         $this->assertEnumInVars();
     }
 
@@ -65,7 +65,8 @@ class RequestsControllerTest extends AppControllerTest {
         $users = array(3 => 'user');
         Mock2::when($this->User->find('list', array('fields' => array('id',
                                                                       'username'))))->thenReturn($users);
-        Mock2::when($this->Project->findById(2))->thenReturn(array('Project' => array('name' => 'test name')));
+        $project =array('Project' => array('name' => 'test name','id'=>2));
+        Mock2::when($this->Project->findById(2))->thenReturn($project);
 
         $request = array('Request' => array('id' => 23, 'project_id'=>2));
         Mock2::when($this->Request->findById(23))->thenReturn($request);
@@ -74,7 +75,7 @@ class RequestsControllerTest extends AppControllerTest {
         $this->assertEqual($this->controller->request->data, $request);
 
         $this->assertEqual($this->vars['users'], $users);
-        $this->assertEqual($this->vars['projectName'], 'test name');
+        $this->assertEqual($this->vars['project'], $project);
         $this->assertEnumInVars();
     }
 
@@ -86,7 +87,8 @@ class RequestsControllerTest extends AppControllerTest {
         $request = array('Request' => array('id' => 23));
         Mock2::when($this->Request->save($request))->thenReturn(false);
 
-        Mock2::when($this->Project->findById(2))->thenReturn(array('Project' => array('name' => 'test name')));
+        $project =array('Project' => array('name' => 'test name','id'=>2));
+        Mock2::when($this->Project->findById(2))->thenReturn($project);
 
         $request2 = array('Request' => array('id' => 23, 'project_id'=>2));
         Mock2::when($this->Request->findById(23))->thenReturn($request2);
@@ -97,7 +99,7 @@ class RequestsControllerTest extends AppControllerTest {
 
         $this->assertEqual($this->controller->request->data, $request);
         $this->assertEqual($this->vars['users'], $users);
-        $this->assertEqual($this->vars['projectName'], 'test name');
+        $this->assertEqual($this->vars['project'], $project);
         $this->assertEnumInVars();
     }
 
@@ -134,17 +136,18 @@ class RequestsControllerTest extends AppControllerTest {
                                                                       'username'))))->thenReturn($users);
 
         $data = array('Request' => array('name' => 'test',
-                                         'project_id' => 23));
-        Mock2::when($this->Project->findById(23))->thenReturn(array('Project' => array('name' => 'test name')));
+                                         'project_id' => 2));
+        $project =array('Project' => array('name' => 'test name','id'=>2));
+        Mock2::when($this->Project->findById(2))->thenReturn($project);
         Mock2::when($this->Request->save($data))->thenReturn(false);
 
         $this->expectFlashError();
-        $this->testAction('/requests/add/23', array('method' => 'post',
+        $this->testAction('/requests/add/2', array('method' => 'post',
                                                     'data' => array('Request' => array('name' => 'test'))));
 
         $this->assertFalse(isset($this->headers['Location']));
         $this->assertEqual($this->vars['users'], $users);
-        $this->assertEqual($this->vars['projectName'], 'test name');
+        $this->assertEqual($this->vars['project'], $project);
         $this->assertEnumInVars();
     }
 

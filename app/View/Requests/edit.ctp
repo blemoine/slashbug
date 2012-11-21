@@ -1,4 +1,6 @@
-<h2><?php echo __('Edit a request on project %s', $projectName) ?></h2>
+<h2><?php echo __('Edit a request on project %s', $this->Html->link($project['Project']['name'], array('controller' => 'requests',
+                                                                                                       'action' => 'index',
+                                                                                                       $project['Project']['id']))) ?></h2>
 <div class="content-area">
 
     <?php

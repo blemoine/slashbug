@@ -1,4 +1,6 @@
-<h2><?php echo __('Add a request on project %s',$projectName) ?></h2>
+<h2><?php echo __('Add a request on project %s', $this->Html->link($project['Project']['name'], array('controller' => 'requests',
+                                                                                                      'action' => 'index',
+                                                                                                      $project['Project']['id']))) ?></h2>
 <div class="content-area">
 
     <?php
@@ -16,7 +18,7 @@
     echo $this->AForm->input('status', array('options' => $status,
                                              'label' => 'Status:'));
     echo $this->AForm->input('minute_spent', array('label' => 'Minute spent:',
-                                                    'type' => 'number'));
+                                                   'type' => 'number'));
     echo $this->AForm->input('assigned_to', array('label' => __('Assigned to:'),
                                                   'empty' => __('None'),
                                                   'type' => 'select',

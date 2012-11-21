@@ -83,7 +83,7 @@ class RequestsController extends AppController {
 
     protected function loadDataForSelect($idProject) {
         $project = $this->Project->findById($idProject);
-        $this->set('projectName', $project['Project']['name']);
+        $this->set('project', $project);
         $this->set('users', $this->User->find('list', array('fields' => array('id',
                                                                               'username'))));
         $this->set('types', Type::i18nList());
