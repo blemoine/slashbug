@@ -21,22 +21,24 @@ class Request extends AppModel {
         ),
         'created_by' => array(
             'required' => array(
+                'on' => 'create',
                 'rule' => array('notEmpty'),
                 'message' => 'A creator is required'),
             'naturalNumber' => array(
                 'rule' => array('naturalNumber',
                                 false),
-                'required' => true,
+                'required' => 'create',
                 'message' => 'numbers only'),
         ),
         'project_id' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
+                'on' => 'create',
                 'message' => 'A project is required'),
             'naturalNumber' => array(
                 'rule' => array('naturalNumber',
                                 false),
-                'required' => true,
+                'required' => 'create',
                 'message' => 'numbers only'),
         ),
         'type' => array(

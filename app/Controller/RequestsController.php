@@ -2,7 +2,11 @@
 App::uses('Type', 'Model');
 App::uses('Priority', 'Model');
 App::uses('Status', 'Model');
-
+/**
+ * @property Request Request
+ * @property User User
+ * @property Project Project
+ */
 class RequestsController extends AppController {
 
     public $uses = array('Request',
@@ -47,8 +51,9 @@ class RequestsController extends AppController {
             $data['Request']['id'] = $idRequest;
             if ($this->Request->save($data)) {
                 $this->setFlashSuccess(__('Your request has been saved.'));
+                $request = $this->Request->findById($idRequest);
                 $this->redirect(array('action' => 'index',
-                                      $data['Request']['project_id']));
+                                      $request['Request']['project_id']));
             } else {
                 $this->loadDataForSelect();
                 $this->setFlashErrorForModel($this->Request);

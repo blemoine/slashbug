@@ -97,6 +97,7 @@ class RequestsControllerTest extends AppControllerTest {
         $request = array('Request' => array('id' => 23,
                                             'project_id' => 32));
         Mock2::when($this->Request->save($request))->thenReturn(true);
+        Mock2::when($this->Request->findById(23))->thenReturn($request);
         $this->expectFlashSuccess();
         $this->testAction('/requests/edit/23', array('method' => 'put',
                                                      'data' => $request));
