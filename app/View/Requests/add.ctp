@@ -1,4 +1,4 @@
-<h2><?php echo __('Add a request') ?></h2>
+<h2><?php echo __('Add a request on project %s',$projectName) ?></h2>
 <div class="content-area">
 
     <?php
@@ -8,7 +8,7 @@
     echo $this->AForm->textareaMce('description', array('label' => __('Description:')));
     echo $this->AForm->input('created_by', array('label' => __('Created by:'),
                                                  'options' => $users));
-    echo $this->AForm->input('project_id', array('Project:'));
+
     echo $this->AForm->input('type', array('options' => $types,
                                            'label' => 'Type:'));
     echo $this->AForm->input('priority', array('options' => $priorities,

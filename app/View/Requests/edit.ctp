@@ -1,4 +1,4 @@
-<h2><?php echo __('Edit a request') ?></h2>
+<h2><?php echo __('Edit a request on project %s', $projectName) ?></h2>
 <div class="content-area">
 
     <?php

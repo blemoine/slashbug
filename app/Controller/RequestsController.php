@@ -43,8 +43,9 @@ class RequestsController extends AppController {
     public function edit($idRequest) {
 
         if (!$this->request->isPut()) {
-            $this->loadDataForSelect();
-            $this->request->data = $this->Request->findById($idRequest);
+            $request = $this->Request->findById($idRequest);
+            $this->loadDataForSelect($request['Request']['project_id']);
+            $this->request->data = $request;
         } else {
             $data = $this->request->data;
 
@@ -55,31 +56,34 @@ class RequestsController extends AppController {
                 $this->redirect(array('action' => 'index',
                                       $request['Request']['project_id']));
             } else {
-                $this->loadDataForSelect();
+                $request = $this->Request->findById($idRequest);
+                $this->loadDataForSelect($request['Request']['project_id']);
                 $this->setFlashErrorForModel($this->Request);
             }
         }
     }
 
-    public function add() {
+    public function add($idProject) {
         if ($this->request->isPost()) {
             $data = $this->request->data;
+            $data['Request']['project_id'] = $idProject;
 
             if ($this->Request->save($data)) {
                 $this->setFlashSuccess(__('Your request has been saved.'));
                 $this->redirect(array('action' => 'index',
                                       $data['Request']['project_id']));
             } else {
-                $this->loadDataForSelect();
+                $this->loadDataForSelect($idProject);
                 $this->setFlashErrorForModel($this->Request);
             }
         } else {
-            $this->loadDataForSelect();
+            $this->loadDataForSelect($idProject);
         }
     }
 
-    protected function loadDataForSelect() {
-        $this->set('projects', $this->Project->find('list'));
+    protected function loadDataForSelect($idProject) {
+        $project = $this->Project->findById($idProject);
+        $this->set('projectName', $project['Project']['name']);
         $this->set('users', $this->User->find('list', array('fields' => array('id',
                                                                               'username'))));
         $this->set('types', Type::i18nList());

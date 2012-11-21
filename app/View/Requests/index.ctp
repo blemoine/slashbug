@@ -2,7 +2,8 @@
 <div class="content-area">
 
     <?php echo $this->Html->link(__('Add a request'), array('controller' => 'requests',
-                                                            'action' => 'add'), array('class' => 'button-green')); ?>
+                                                            'action' => 'add',
+                                                            $project['Project']['id']), array('class' => 'button-green')); ?>
 
     <?php $this->Datatable->create('requests-table', array('controller' => 'requests',
                                                            'action' => 'listRequests',
