@@ -59,12 +59,13 @@ class Mock2 {
         $this->expectedCall[] = $call;
     }
 
-    public function __instrument() {
+    public function __instrument($mock = null) {
         $methods = array_map(function($call) {
             return $call->methodName;
         }, $this->expectedCall);
-        $mock = PHPUnit_Framework_MockObject_Generator::getMock($this->mockClassName, $methods, $this->constructorParameters);
-
+        if (!isset($mock)) {
+            $mock = PHPUnit_Framework_MockObject_Generator::getMock($this->mockClassName, $methods, $this->constructorParameters);
+        }
         foreach ($this->expectedCall as $call) {
             $call->__instrument($mock);
         }

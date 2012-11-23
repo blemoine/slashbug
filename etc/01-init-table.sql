@@ -56,4 +56,5 @@ ALTER TABLE requests ADD CONSTRAINT FK_requests_assignedto FOREIGN KEY (assigned
 
 CREATE INDEX IDX_PROJECT_STATUS ON requests(project_id, status);
 
-INSERT INTO `users` VALUES (1,'admin','Admin','Admin','lemoine.benoit@gmail.com','4e269209a2005329a33f0c7e3bc7b0e6631b294d','admin','2012-07-28 17:06:14','2012-07-28 17:06:14');
+-- MDP DADA
+INSERT INTO `users` VALUES (1,'admin','Admin','Admin','543e96cc9657814ef49748b50fd8ade27dd3d5ee','lemoine.benoit@gmail.com','admin','2012-07-28 17:06:14','2012-07-28 17:06:14');

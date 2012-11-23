@@ -12,7 +12,7 @@ abstract class AppControllerTest extends ControllerTestCase {
         CakePlugin::load('Less');
 
         $modelDescription = $this->getModelsDescription();
-        $this->controller = $this->generate($this->getControllerName());
+        $this->controller = $this->generate($this->getControllerName(), array('components' => array('Auth' => $this->getAuthMocKMethods())));
         foreach ($modelDescription as $modelName) {
             ClassRegistry::init($modelName);
             $this->$modelName = new Mock2($modelName, array(array('name' => $modelName)));
@@ -78,5 +78,9 @@ abstract class AppControllerTest extends ControllerTestCase {
     protected abstract function getControllerName();
 
     protected abstract function getModelsDescription();
+
+    protected function getAuthMocKMethods() {
+        return array();
+    }
 
 }

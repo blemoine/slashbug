@@ -4,6 +4,15 @@ App::uses('Controller', 'Controller');
 
 class AppController extends Controller {
 
+    public $components = array('Session',
+                               'Auth' => array(
+                                   'loginAction' => array('controller' => 'authentication',
+                                                          'action' => 'login'),
+                                   'loginRedirect' => array('controller' => 'projects',
+                                                            'action' => 'index'),
+
+                               ));
+
     public $helpers = array(
         'Html',
         'Session',
