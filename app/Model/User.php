@@ -44,9 +44,7 @@ class User extends AppModel {
                 'message' => 'The username must have less than 50 characters')),
         'email' => array(
             'valid' => array(
-                'rule' => array(
-                    'notEmpty',
-                    'email'),
+                'rule' => 'email',
                 'message' => 'Please enter a valid email address',
                 'allowEmpty' => false)),
         'usertype' => array(

@@ -35,6 +35,30 @@ class UsersControllerTest extends AppControllerTest {
         $this->assertTrue(strpos($this->view, 'datatable') !== false);
     }
 
+    public function testAdd_get() {
+        $this->testAction('/users/add', array("method" => 'get'));
+        $this->assertEqual($this->vars['usertypes'], Usertype::i18nList());
+    }
+
+    public function testAdd_postError() {
+        $data = array('User' => array('firstname' => 'test'));
+        Mock2::when($this->User->save($data))->thenReturn(false);
+        $this->expectFlashError();
+        $this->testAction('/users/add', array("method" => 'post',
+                                              'data' => $data));
+        $this->assertEqual($this->vars['usertypes'], Usertype::i18nList());
+        $this->assertFalse(isset($this->headers['Location']));
+    }
+
+    public function testAdd_postOk() {
+        $data = array('User' => array('firstname' => 'test'));
+        Mock2::when($this->User->save($data))->thenReturn(true);
+        $this->expectFlashSuccess();
+        $this->testAction('/users/add', array("method" => 'post',
+                                              'data' => $data));
+        $this->assertContains('/users', $this->headers['Location']);
+    }
+
     protected function getControllerName() {
         return 'Users';
     }

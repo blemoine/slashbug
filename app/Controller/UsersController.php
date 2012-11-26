@@ -1,5 +1,5 @@
 <?php
-App::uses('UserType', 'Model');
+App::uses('Usertype', 'Model');
 /**
  * @property User User
  */
@@ -10,7 +10,6 @@ class UsersController extends AppController {
     public $helpers = array('Datatable.Datatable');
 
     public function index() {
-
     }
 
     public function listUsers() {
@@ -29,5 +28,20 @@ class UsersController extends AppController {
         $this->render(null, false);
     }
 
+    public function add() {
+        if ($this->request->isPost()) {
+            $data = $this->request->data;
+
+            if ($this->User->save($data)) {
+                $this->setFlashSuccess(__('Your user has been saved.'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->set('usertypes', Usertype::i18nList());
+                $this->setFlashErrorForModel($this->User);
+            }
+        } else {
+            $this->set('usertypes', Usertype::i18nList());
+        }
+    }
 
 }
