@@ -12,4 +12,13 @@ class StatusTest extends CakeTestCase {
                                           'resolved',
                                           'ignored'));
     }
+
+    public function testI18nList() {
+        $status = new Status();
+        $result = $status->i18nList();
+        $this->assertEqual($result, array('sent' => 'sent',
+                                          'in_progress' => 'in_progress',
+                                          'resolved' => 'resolved',
+                                          'ignored' => 'ignored'));
+    }
 }

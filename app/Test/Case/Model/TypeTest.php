@@ -11,4 +11,12 @@ class TypeTest extends CakeTestCase {
                                           'bug',
                                           'evolution'));
     }
+
+    public function testI18nList() {
+        $type = new Type();
+        $result = $type->i18nList();
+        $this->assertEqual($result, array('maintenance' => 'maintenance',
+                                          'bug' => 'bug',
+                                          'evolution' => 'evolution'));
+    }
 }

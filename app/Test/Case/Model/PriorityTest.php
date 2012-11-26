@@ -10,4 +10,11 @@ class PriorityTest extends CakeTestCase {
         $this->assertEqual($values, array('normal',
                                           'urgent'));
     }
+
+    public function testI18nList() {
+        $priority = new Priority();
+        $result = $priority->i18nList();
+        $this->assertEqual($result, array('normal' => 'normal',
+                                          'urgent' => 'urgent'));
+    }
 }
