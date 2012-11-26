@@ -13,11 +13,12 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
         echo $this->Html->meta('icon');
 
         echo $this->Html->css('reset');
-        echo $this->Html->css('jquery-ui-1.9.1.custom.min', null, array('plugin' => false));
+        echo $this->Html->script('jquery-1.8.2.min.js');
+        echo $this->Html->script('jquery-ui-1.9.1.custom.min.js', array('plugin' => false));
+        echo $this->Html->script('jquery.validate.min.js');
         echo $this->Html->css('tinymce');
         echo $this->Less->less('slashbug');
 
-        echo $this->Html->script('jquery-1.8.2.min.js');
         echo $this->Html->script('main.js');
 
         echo $this->fetch('meta');

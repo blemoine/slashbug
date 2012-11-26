@@ -31,7 +31,7 @@ class AFormHelper extends FormHelper {
     jQuery(function() {
 
             jQuery('#$id').submit(function() {
-                if(tinyMCE) {
+                if(typeof(tinyMCE)!='undefined') {
                     tinyMCE.triggerSave();
                 }
             });
@@ -43,7 +43,7 @@ class AFormHelper extends FormHelper {
                     if( this.settings.focusInvalid ) {
                         try {
                             var toFocus = $(this.findLastActive() || this.errorList.length && this.errorList[0].element || []);
-                            if (toFocus.is("textarea")) {
+                            if (toFocus.is("textarea") && typeof(tinyMCE)!='undefined') {
                                 tinyMCE.get(toFocus.attr("id")).focus();
                             } else {
                                 toFocus.filter(":visible").focus();
