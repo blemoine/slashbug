@@ -125,8 +125,14 @@ class RequestsControllerTest extends AppControllerTest {
     }
 
     public function testAdd_postOk() {
+
+        $mock = new Mock2('AuthComponent');
+        Mock2::staticWhen($mock->user('id'))->thenReturn(3);
+        $mock->__instrument($this->controller->Auth);
+
         $data = array('Request' => array('name' => 'test',
-                                         'project_id' => 23));
+                                         'project_id' => 23,
+                                         'created_by' => 3));
         Mock2::when($this->Request->save($data))->thenReturn(true);
 
         $this->expectFlashSuccess();
@@ -137,12 +143,19 @@ class RequestsControllerTest extends AppControllerTest {
     }
 
     public function testAdd_postError() {
+
+
+        $mock = new Mock2('AuthComponent');
+        Mock2::staticWhen($mock->user('id'))->thenReturn(4);
+        $mock->__instrument($this->controller->Auth);
+
         $users = array(3 => 'user');
         Mock2::when($this->User->find('list', array('fields' => array('id',
                                                                       'username'))))->thenReturn($users);
 
         $data = array('Request' => array('name' => 'test',
-                                         'project_id' => 2));
+                                         'project_id' => 2,
+                                         'created_by' => 4));
         $project = array('Project' => array('name' => 'test name',
                                             'id' => 2));
         Mock2::when($this->Project->findById(2))->thenReturn($project);

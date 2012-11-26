@@ -63,15 +63,18 @@ class RequestsController extends AppController {
         }
     }
 
-    public function add($idProject) {
+    public function add($idProjectStr) {
+        $idProject = (int) $idProjectStr;
         if ($this->request->isPost()) {
             $data = $this->request->data;
+
             $data['Request']['project_id'] = $idProject;
+            $data['Request']['created_by'] = $this->Auth->user('id');
 
             if ($this->Request->save($data)) {
                 $this->setFlashSuccess(__('Your request has been saved.'));
                 $this->redirect(array('action' => 'index',
-                                      $data['Request']['project_id']));
+                                      $idProject));
             } else {
                 $this->loadDataForSelect($idProject);
                 $this->setFlashErrorForModel($this->Request);

@@ -10,6 +10,7 @@ class AppModel extends Model {
         $value = current($check);
 
         try {
+            App::uses($enumName,'Model');
             $enumValues = $enumName::values();
             return in_array($value, $enumValues);
         } catch (MissingTableException $e) {

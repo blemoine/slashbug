@@ -8,9 +8,6 @@
     echo $this->AForm->create('Request');
     echo $this->AForm->input('name', array('label' => __('Name:')));
     echo $this->AForm->textareaMce('description', array('label' => __('Description:')));
-    echo $this->AForm->input('created_by', array('label' => __('Created by:'),
-                                                 'options' => $users));
-
     echo $this->AForm->input('type', array('options' => $types,
                                            'label' => 'Type:'));
     echo $this->AForm->input('priority', array('options' => $priorities,
