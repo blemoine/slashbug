@@ -3,6 +3,9 @@ require_once __DIR__.'/MethodCall2.php';
 require_once __DIR__.'/OngoingStubbing2.php';
 require_once __DIR__.'/StaticOngoingStubbing2.php';
 
+/**
+ * Classe principale représentant l'objet mocké
+ */
 class Mock2 {
 
     private $mockClassName;

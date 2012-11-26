@@ -143,8 +143,6 @@ class RequestsControllerTest extends AppControllerTest {
     }
 
     public function testAdd_postError() {
-
-
         $mock = new Mock2('AuthComponent');
         Mock2::staticWhen($mock->user('id'))->thenReturn(4);
         $mock->__instrument($this->controller->Auth);
