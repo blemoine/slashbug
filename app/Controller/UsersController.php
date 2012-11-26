@@ -18,7 +18,8 @@ class UsersController extends AppController {
             'User.firstname',
             'User.lastname',
             'User.username',
-            'User.email'
+            'User.email',
+            'User.usertype'
         );
         $properties = $this->Datatable->initDatatableProperties($this->request->query, $columns, $this->User);
         foreach ($properties as $name => $val) {

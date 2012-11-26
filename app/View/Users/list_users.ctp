@@ -8,6 +8,7 @@ foreach ($rows as $rawRow) {
     $row[] = $rawRow['User']['lastname'];
     $row[] = $rawRow['User']['username'];
     $row[] = $rawRow['User']['email'];
+    $row[] = __($rawRow['User']['usertype']);
 
     $aaData[] = $row;
 }

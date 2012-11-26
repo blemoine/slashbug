@@ -14,6 +14,7 @@
                 <th><?php echo __('LastName') ?></th>
                 <th><?php echo __('UserName') ?></th>
                 <th><?php echo __('Email') ?></th>
+                <th><?php echo __('Usertype') ?></th>
             </tr>
             </thead>
 

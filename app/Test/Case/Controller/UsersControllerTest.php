@@ -11,7 +11,8 @@ class UsersControllerTest extends AppControllerTest {
                  'User.firstname',
                  'User.lastname',
                  'User.username',
-                 'User.email'), $this->isInstanceOf('User')
+                 'User.email',
+                 'User.usertype'), $this->isInstanceOf('User')
         ))
             ->thenReturn(array(
                               'sEcho' => "value",

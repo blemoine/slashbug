@@ -37,7 +37,11 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
         </div>
         <div class="menu" >
             <ul>
-                <li><?php echo $this->Html->link(__('Projects'), array('controller'=>'projects','action'=>'index')) ?></li>
+                <li>
+                    <?php echo $this->Html->link(__('Projects'), array('controller'=>'projects','action'=>'index')) ?>
+                </li><li><!-- les li doivent se toucher sinon il y un espace qui apparait -->
+                    <?php echo $this->Html->link(__('Users'), array('controller'=>'users','action'=>'index')) ?>
+                </li>
             </ul>
         </div>
 		<div class="content" >
