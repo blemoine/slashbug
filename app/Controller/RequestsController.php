@@ -1,7 +1,4 @@
 <?php
-App::uses('Type', 'Model');
-App::uses('Priority', 'Model');
-App::uses('Status', 'Model');
 /**
  * @property Request Request
  * @property User User
@@ -11,7 +8,10 @@ class RequestsController extends AppController {
 
     public $uses = array('Request',
                          'Project',
-                         'User');
+                         'User',
+                         'Type',
+                         'Priority',
+                         'Status');
     public $components = array('Datatable.Datatable');
 
     public $helpers = array('Datatable.Datatable');
@@ -86,9 +86,9 @@ class RequestsController extends AppController {
         $this->set('project', $project);
         $this->set('users', $this->User->find('list', array('fields' => array('id',
                                                                               'username'))));
-        $this->set('types', Type::i18nList());
-        $this->set('status', Status::i18nList());
-        $this->set('priorities', Priority::i18nList());
+        $this->set('types', $this->Type->i18nList());
+        $this->set('status', $this->Status->i18nList());
+        $this->set('priorities', $this->Priority->i18nList());
     }
 
 }

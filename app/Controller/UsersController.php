@@ -1,5 +1,5 @@
 <?php
-App::uses('Usertype', 'Model');
+
 /**
  * @property User User
  */
@@ -8,6 +8,9 @@ class UsersController extends AppController {
     public $components = array('Datatable.Datatable');
 
     public $helpers = array('Datatable.Datatable');
+
+    public $uses = array('User',
+                         'Usertype');
 
     public function index() {
     }
@@ -36,12 +39,16 @@ class UsersController extends AppController {
                 $this->setFlashSuccess(__('Your user has been saved.'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->set('usertypes', Usertype::i18nList());
+                $this->loadDataForSelect();
                 $this->setFlashErrorForModel($this->User);
             }
         } else {
-            $this->set('usertypes', Usertype::i18nList());
+            $this->loadDataForSelect();
         }
+    }
+
+    private function loadDataForSelect() {
+        $this->set('usertypes', $this->Usertype->i18nList());
     }
 
 }

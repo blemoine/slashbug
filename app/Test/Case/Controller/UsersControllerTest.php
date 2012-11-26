@@ -36,17 +36,22 @@ class UsersControllerTest extends AppControllerTest {
     }
 
     public function testAdd_get() {
+        $usertypes = array('userdatas');
+        Mock2::when($this->Usertype->i18nList())->thenReturn($usertypes);
+
         $this->testAction('/users/add', array("method" => 'get'));
-        $this->assertEqual($this->vars['usertypes'], Usertype::i18nList());
+        $this->assertEqual($this->vars['usertypes'], $usertypes);
     }
 
     public function testAdd_postError() {
+        $usertypes = array('userdatas');
+        Mock2::when($this->Usertype->i18nList())->thenReturn($usertypes);
         $data = array('User' => array('firstname' => 'test'));
         Mock2::when($this->User->save($data))->thenReturn(false);
         $this->expectFlashError();
         $this->testAction('/users/add', array("method" => 'post',
                                               'data' => $data));
-        $this->assertEqual($this->vars['usertypes'], Usertype::i18nList());
+        $this->assertEqual($this->vars['usertypes'], $usertypes);
         $this->assertFalse(isset($this->headers['Location']));
     }
 
@@ -64,7 +69,8 @@ class UsersControllerTest extends AppControllerTest {
     }
 
     protected function getModelsDescription() {
-        return array('User');
+        return array('User',
+                     'Usertype');
     }
 
     protected function getComponentsDescription() {

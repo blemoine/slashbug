@@ -48,10 +48,11 @@ class RequestsControllerTest extends AppControllerTest {
         Mock2::when($this->User->find('list', array('fields' => array('id',
                                                                       'username'))))->thenReturn($users);
 
-        $project =array('Project' => array('name' => 'test name','id'=>2));
+        $project = array('Project' => array('name' => 'test name',
+                                            'id' => 2));
         Mock2::when($this->Project->findById(2))->thenReturn($project);
 
-
+        $this->mockEnum();
         $this->testAction('/requests/add/2', array('method' => 'get'));
 
 
@@ -65,11 +66,14 @@ class RequestsControllerTest extends AppControllerTest {
         $users = array(3 => 'user');
         Mock2::when($this->User->find('list', array('fields' => array('id',
                                                                       'username'))))->thenReturn($users);
-        $project =array('Project' => array('name' => 'test name','id'=>2));
+        $project = array('Project' => array('name' => 'test name',
+                                            'id' => 2));
         Mock2::when($this->Project->findById(2))->thenReturn($project);
 
-        $request = array('Request' => array('id' => 23, 'project_id'=>2));
+        $request = array('Request' => array('id' => 23,
+                                            'project_id' => 2));
         Mock2::when($this->Request->findById(23))->thenReturn($request);
+        $this->mockEnum();
         $this->testAction('/requests/edit/23', array('method' => 'get'));
 
         $this->assertEqual($this->controller->request->data, $request);
@@ -87,12 +91,14 @@ class RequestsControllerTest extends AppControllerTest {
         $request = array('Request' => array('id' => 23));
         Mock2::when($this->Request->save($request))->thenReturn(false);
 
-        $project =array('Project' => array('name' => 'test name','id'=>2));
+        $project = array('Project' => array('name' => 'test name',
+                                            'id' => 2));
         Mock2::when($this->Project->findById(2))->thenReturn($project);
 
-        $request2 = array('Request' => array('id' => 23, 'project_id'=>2));
+        $request2 = array('Request' => array('id' => 23,
+                                             'project_id' => 2));
         Mock2::when($this->Request->findById(23))->thenReturn($request2);
-
+        $this->mockEnum();
         $this->expectFlashError();
         $this->testAction('/requests/edit/23', array('method' => 'put',
                                                      'data' => $request));
@@ -137,13 +143,14 @@ class RequestsControllerTest extends AppControllerTest {
 
         $data = array('Request' => array('name' => 'test',
                                          'project_id' => 2));
-        $project =array('Project' => array('name' => 'test name','id'=>2));
+        $project = array('Project' => array('name' => 'test name',
+                                            'id' => 2));
         Mock2::when($this->Project->findById(2))->thenReturn($project);
         Mock2::when($this->Request->save($data))->thenReturn(false);
-
+        $this->mockEnum();
         $this->expectFlashError();
         $this->testAction('/requests/add/2', array('method' => 'post',
-                                                    'data' => array('Request' => array('name' => 'test'))));
+                                                   'data' => array('Request' => array('name' => 'test'))));
 
         $this->assertFalse(isset($this->headers['Location']));
         $this->assertEqual($this->vars['users'], $users);
@@ -151,10 +158,16 @@ class RequestsControllerTest extends AppControllerTest {
         $this->assertEnumInVars();
     }
 
-    protected function assertEnumInVars() {
-        $this->assertEqual($this->vars['types'], Type::i18nList());
-        $this->assertEqual($this->vars['status'], Status::i18nList());
-        $this->assertEqual($this->vars['priorities'], Priority::i18nList());
+    protected function mockEnum($types = array('DataType'), $status = array('dataStatus'), $priorities = array('dataPriority')) {
+        Mock2::when($this->Type->i18nList())->thenReturn($types);
+        Mock2::when($this->Status->i18nList())->thenReturn($status);
+        Mock2::when($this->Priority->i18nList())->thenReturn($priorities);
+    }
+
+    protected function assertEnumInVars($types = array('DataType'), $status = array('dataStatus'), $priorities = array('dataPriority')) {
+        $this->assertEqual($this->vars['types'], $types);
+        $this->assertEqual($this->vars['status'], $status);
+        $this->assertEqual($this->vars['priorities'], $priorities);
     }
 
     protected function getControllerName() {
@@ -164,7 +177,10 @@ class RequestsControllerTest extends AppControllerTest {
     protected function getModelsDescription() {
         return array('Request',
                      'User',
-                     'Project');
+                     'Project',
+                     'Type',
+                     'Priority',
+                     'Status');
     }
 
     protected function getComponentsDescription() {
